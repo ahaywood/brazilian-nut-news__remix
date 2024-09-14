@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "brazilian-nut-news",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -7,13 +7,18 @@
     "build": "remix build",
     "dev": "remix dev --manual",
     "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "icons": "tsx ./other/build-icons.mts"
   },
   "dependencies": {
+    "@prisma/client": "^5.19.1",
     "@remix-run/css-bundle": "^2.2.0",
     "@remix-run/node": "^2.2.0",
     "@remix-run/react": "^2.2.0",
     "@remix-run/serve": "^2.2.0",
+    "@supabase/ssr": "^0.5.1",
+    "@supabase/supabase-js": "^2.45.4",
+    "date-fns": "^4.0.0-beta.1",
     "esbuild": "^0.23.1",
     "isbot": "^3.6.8",
     "mdx-bundler": "^10.0.3",
@@ -27,8 +32,13 @@
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.38.0",
+    "fs-extra": "^11.2.0",
+    "glob": "^11.0.0",
+    "node-html-parser": "^6.1.13",
     "postcss": "^8.4.45",
+    "prisma": "^5.19.1",
     "tailwindcss": "^3.4.11",
+    "tsx": "^4.19.1",
     "typescript": "^5.1.6"
   },
   "engines": {
