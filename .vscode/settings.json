@@ -1,0 +1,13 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#462501",
+    "titleBar.activeBackground": "#633401",
+    "titleBar.activeForeground": "#FFFAF4"
+  },
+  "cSpell.words": [
+    "frontmatter",
+    "icterine",
+    "rehype",
+    "signup"
+  ]
+}
