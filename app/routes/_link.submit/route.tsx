@@ -14,6 +14,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json({ ok: false });
     }
 
+    // TODO: Convert to Supabase, instead of Prisma
     await prisma.link.create({
       data: {
         title: title as string,
@@ -25,6 +26,8 @@ export async function action({ request }: ActionFunctionArgs) {
         },
       },
     });
+
+    // TODO: Redirect to dedicated link page
     return json({ ok: true });
   } catch (error) {
     console.error(error);

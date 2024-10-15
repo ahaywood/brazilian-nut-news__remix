@@ -1,10 +1,17 @@
 import { Outlet } from "@remix-run/react";
+import { Footer } from "~/components/Footer";
+import { BaseLayout } from "~/layouts/BaseLayout";
 
 export default function Auth({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      <h1>Auth</h1>
-      <Outlet />
-    </div>
+    <BaseLayout>
+      <>
+        <Outlet />
+
+        <div className="border-t-2 border-t-icterine bg-icterine py-8 pl-leftGutter text-cinder">
+          <Footer />
+        </div>
+      </>
+    </BaseLayout>
   );
 }
