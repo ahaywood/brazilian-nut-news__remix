@@ -1,4 +1,31 @@
+import { json, redirect } from "@remix-run/node";
+import type { ActionFunctionArgs } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
+import { serverSupabase } from "~/lib/supabase";
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const { supabase, headers } = serverSupabase(request);
+
+  const formData = await request.formData();
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    console.error({ error });
+    return json({ success: false }, { headers });
+  }
+
+  return redirect("/", { headers });
+};
+
 export default function Login() {
+  const actionResponse = useActionData<typeof action>();
+  console.log({ actionResponse });
   return (
     <div className="page-grid min-h-screen bg-cinder">
       <div className="col-span-12 col-start-1 row-start-1">
@@ -9,12 +36,12 @@ export default function Login() {
         </h1>
       </div>
       <div className="col-span-4 col-start-8 row-start-1">
-        <form action="" className="mt-[100px] bg-cinder p-4 text-white">
+        <Form method="POST" className="mt-[100px] bg-cinder p-4 text-white">
           <div className="field">
-            <label htmlFor="username" className="text-icterine">
+            <label htmlFor="email" className="text-icterine">
               Email
             </label>
-            <input type="text" name="username" required />
+            <input type="text" name="email" required />
           </div>
 
           <div className="field">
@@ -43,7 +70,7 @@ export default function Login() {
           >
             Login
           </button>
-        </form>
+        </Form>
       </div>
     </div>
   );

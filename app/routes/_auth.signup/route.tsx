@@ -1,3 +1,41 @@
+import type { ActionFunctionArgs } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
+import { supabase } from "~/lib/supabase";
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  // get the content from the form
+  const formData = await request.formData();
+  const email = formData.get("email") as string;
+  const firstName = formData.get("firstName") as string;
+  const lastName = formData.get("lastName") as string;
+  const nickname = formData.get("nickname") as string;
+  const password = formData.get("password") as string;
+
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  console.log(data);
+
+  if (error) {
+    console.error(error);
+  }
+
+  // if everything was successful, take the remaining data and add it to the profile table
+  const profileResults = await supabase.from("User").insert({
+    userId: data?.user?.id,
+    email,
+    firstName,
+    lastName,
+    nickname,
+  });
+
+  if (profileResults.error) {
+    console.error(profileResults.error);
+  }
+
+  console.log(profileResults.data);
+
+  return redirect("/login");
+};
+
 export default function Signup() {
   return (
     <div className="page-grid min-h-screen bg-cinder">
@@ -10,12 +48,12 @@ export default function Signup() {
       </div>
       <div className="col-span-4 col-start-8 row-start-1 mb-20">
         {/* FORM */}
-        <form action="" className="mt-[100px] bg-cinder text-white">
+        <form method="POST" className="mt-[100px] bg-cinder text-white">
           <div className="field">
-            <label htmlFor="username" className="text-icterine">
+            <label htmlFor="email" className="text-icterine">
               Email
             </label>
-            <input type="email" name="username" />
+            <input type="email" name="email" required />
           </div>
 
           <div className="field">
@@ -47,6 +85,7 @@ export default function Signup() {
               type="password"
               name="password"
               autoComplete="current-password"
+              required
             />
           </div>
 

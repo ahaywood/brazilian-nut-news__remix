@@ -4,7 +4,7 @@ import { BaseLayout } from "~/layouts/BaseLayout";
 
 export default function Auth({ children }: { children: React.ReactNode }) {
   return (
-    <BaseLayout>
+    <BaseLayout isAuthenticated={false} currentUser={{}}>
       <>
         <Outlet />
 

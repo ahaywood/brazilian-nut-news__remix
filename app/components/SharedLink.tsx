@@ -114,10 +114,9 @@ const SharedLink = ({
       {/* arrow */}
       <a
         href={url}
-        className="text-cinder dark:text-icterine"
+        className="text-cinder dark:text-icterine cursor-pointer"
         target="_blank"
         rel="noreferrer"
-        data-testid="sharedLinkUrl"
       >
         <Icon id="arrow" className="relative top-2 w-14" />
       </a>
